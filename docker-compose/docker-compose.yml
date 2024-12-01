@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-pokedex
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pokedex
+      MYSQL_USER: pokedex_user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - pokedex-network
+
+volumes:
+  mysql_data:
+
+networks:
+  pokedex-network:

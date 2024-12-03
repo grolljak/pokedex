@@ -11,5 +11,12 @@ public interface PokemonRepository extends JpaRepository<Pokemon, UUID> {
 
     List<Pokemon> findByTypeContaining(String type);
 
-
+    List<Pokemon> findByNameAndTypeAndHeightAndWeightAndIsLegendaryAndDescriptionContaining(
+            String name,
+            String type,
+            Double height,
+            Double weight,
+            Boolean isLegendary,
+            String description
+    );
 }

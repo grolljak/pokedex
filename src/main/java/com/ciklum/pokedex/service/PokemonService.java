@@ -33,4 +33,18 @@ public class PokemonService {
     public List<PokemonDTO> getPokemonsByType(String type) {
         return repository.findByTypeContaining(type).stream().map(PokemonService::mapEntityToDTO).toList();
     }
+
+    public List<PokemonDTO> getPokemonsByAllProperties(final String name,
+                                                       final String type,
+                                                       final Double height,
+                                                       final Double weight,
+                                                       final Boolean isLegendary,
+                                                       final String description) {
+        return repository
+                .findByNameAndTypeAndHeightAndWeightAndIsLegendaryAndDescriptionContaining(
+                        name, type, height, weight, isLegendary, description)
+                .stream()
+                .map(PokemonService::mapEntityToDTO)
+                .toList();
+    }
 }

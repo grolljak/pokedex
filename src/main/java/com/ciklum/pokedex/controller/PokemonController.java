@@ -1,12 +1,10 @@
 package com.ciklum.pokedex.controller;
 
 import com.ciklum.pokedex.dto.PokemonDTO;
+import com.ciklum.pokedex.dto.PokemonProperties;
 import com.ciklum.pokedex.service.PokemonService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,11 +23,25 @@ public class PokemonController {
         return pokemonService.getAllPokemons();
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchByType")
     public ResponseEntity<List<PokemonDTO>> getPokemonsByType(@RequestParam("type") String type) {
         List<PokemonDTO> pokemons = pokemonService.getPokemonsByType(type);
         return ResponseEntity.ok(pokemons);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PokemonDTO>> searchPokemons(
+            @RequestBody PokemonProperties requestBody
+    ) {
+        List<PokemonDTO> pokemons = pokemonService.getPokemonsByAllProperties(
+                requestBody.name(),
+                requestBody.type(),
+                requestBody.height(),
+                requestBody.weight(),
+                requestBody.isLegendary(),
+                requestBody.description()
+        );
+        return ResponseEntity.ok(pokemons);
+    }
 
 }

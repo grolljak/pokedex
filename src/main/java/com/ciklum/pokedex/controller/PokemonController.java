@@ -3,6 +3,7 @@ package com.ciklum.pokedex.controller;
 import com.ciklum.pokedex.dto.PokemonDTO;
 import com.ciklum.pokedex.dto.PokemonProperties;
 import com.ciklum.pokedex.service.PokemonService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class PokemonController {
 
     private final PokemonService pokemonService;
 
-    public PokemonController(PokemonService pokemonService) {
+    public PokemonController(@Qualifier("dynamicPokemonService") PokemonService pokemonService) {
         this.pokemonService = pokemonService;
     }
 

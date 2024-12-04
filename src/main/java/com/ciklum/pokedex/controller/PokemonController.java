@@ -1,5 +1,6 @@
 package com.ciklum.pokedex.controller;
 
+import com.ciklum.pokedex.dto.LightPokemonDTO;
 import com.ciklum.pokedex.dto.PokemonDTO;
 import com.ciklum.pokedex.dto.PokemonProperties;
 import com.ciklum.pokedex.service.PokemonService;
@@ -15,7 +16,7 @@ public class PokemonController {
 
     private final PokemonService pokemonService;
 
-    public PokemonController(@Qualifier("dynamicPokemonService") PokemonService pokemonService) {
+    public PokemonController(@Qualifier("dumbPokemonService") PokemonService pokemonService) {
         this.pokemonService = pokemonService;
     }
 
@@ -42,6 +43,12 @@ public class PokemonController {
                 requestBody.isLegendary(),
                 requestBody.description()
         );
+        return ResponseEntity.ok(pokemons);
+    }
+
+    @GetMapping("/searchByTypeUsingProjection")
+    public ResponseEntity<List<LightPokemonDTO>> getPokemonsByTypeUsingProjection(@RequestParam("type") String type) {
+        List<LightPokemonDTO> pokemons = pokemonService.getLightweightPokemonsByType(type);
         return ResponseEntity.ok(pokemons);
     }
 

@@ -1,5 +1,6 @@
 package com.ciklum.pokedex.service.impl;
 
+import com.ciklum.pokedex.dto.LightPokemonDTO;
 import com.ciklum.pokedex.dto.PokemonDTO;
 import com.ciklum.pokedex.entity.Pokemon;
 import com.ciklum.pokedex.repository.PokemonRepository;
@@ -37,6 +38,11 @@ public class DumbPokemonService implements PokemonService {
                 .stream()
                 .map(DumbPokemonService::mapEntityToDTO)
                 .toList();
+    }
+
+    @Override
+    public List<LightPokemonDTO> getLightweightPokemonsByType(String type) {
+        return repository.findByType(type);
     }
 
     private static PokemonDTO mapEntityToDTO(Pokemon entity) {

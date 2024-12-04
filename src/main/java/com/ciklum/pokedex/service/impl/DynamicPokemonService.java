@@ -1,9 +1,9 @@
 package com.ciklum.pokedex.service.impl;
 
+import com.ciklum.pokedex.dto.LightPokemonDTO;
 import com.ciklum.pokedex.dto.PokemonDTO;
 import com.ciklum.pokedex.entity.Pokemon;
 import com.ciklum.pokedex.repository.DynamicPokemonRepository;
-import com.ciklum.pokedex.repository.PokemonRepository;
 import com.ciklum.pokedex.service.PokemonService;
 import com.ciklum.pokedex.specifcation.PokemonSpecifications;
 import org.springframework.data.jpa.domain.Specification;
@@ -56,6 +56,13 @@ public class DynamicPokemonService implements PokemonService {
                 .stream()
                 .map(DynamicPokemonService::mapEntityToDTO)
                 .toList();
+    }
+
+    @Override
+    public List<LightPokemonDTO> getLightweightPokemonsByType(String type) {
+        Specification<Pokemon> specification = PokemonSpecifications.byType("fire");
+
+        return repository.findBy(specification, query -> query.as(LightPokemonDTO.class)).all();
     }
 
     private static PokemonDTO mapEntityToDTO(Pokemon entity) {

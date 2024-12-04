@@ -1,5 +1,6 @@
 package com.ciklum.pokedex.service;
 
+import com.ciklum.pokedex.dto.LightPokemonDTO;
 import com.ciklum.pokedex.dto.PokemonDTO;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface PokemonService {
             Boolean legendary,
             String description
     );
+
+    List<LightPokemonDTO> getLightweightPokemonsByType(String type);
 }
